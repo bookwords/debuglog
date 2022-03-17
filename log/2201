@@ -1,0 +1,36 @@
+1. Android app crash while calling JNI function.
+   The app runs fine while commenting the JNI function, and crashes while calling the JNI.
+   Java team members update the android Studio SDK. Finally we found that the 'STORAGE permission' default 'disabled' after the app install.
+   Dynamically request Android permission:   Android M introduces new run-time permission model which allows you to do this.
+ 
+
+2. MT7915 5G/2.4G AP supports MCS settings:
+   iw wlan1 set bitrates vht-mcs-5 1:4
+   But those AP cant use 'set tidconf' to limit the associated 'stations' MCS settings.
+   and pay attention to the 'iw phy0 info' command, it lists the commands the target silicon supported.
+   for example:
+   '
+   upported commands:
+                 * new_interface
+                 * set_interface
+                 * new_key
+                 * start_ap
+   '
+   and the files involved: 
+   linux kernel:
+   a. mt7915/main.c
+      struct ieee80211_ops mt7915_ops
+      -->set_tid_config, function not supported.
+   b. mac80211.h
+      struct ieee80211_ops{
+      void (*tx)(struct ieee80211_hw *hw,
+            .
+            .
+    int (*set_tid_config)(struct ieee80211_hw *hw,
+            . 
+            .
+   b. net/mac80211/cfg.c
+      struct cfg80211_ops mac80211_config_ops
+
+
+   
