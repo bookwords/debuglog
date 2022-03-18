@@ -2,7 +2,7 @@
    The app runs fine while commenting the JNI function, and crashes while calling the JNI.
    Java team members update the android Studio SDK. Finally we found that the 'STORAGE permission' default 'disabled' after the app install.
    Dynamically request Android permission:   Android M introduces new run-time permission model which allows you to do this.
- 
+   高版本的android安装的时候不开存储权限，都是运行时询问，要用户同意才行 
 
 2. MT7915 5G/2.4G AP supports MCS settings:
    iw wlan1 set bitrates vht-mcs-5 1:4
