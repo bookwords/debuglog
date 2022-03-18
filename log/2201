@@ -32,5 +32,7 @@
    b. net/mac80211/cfg.c
       struct cfg80211_ops mac80211_config_ops
 
+3. Android App http test got completely different results, Note10 ran 4 times while 180 times for Mate40, and the 'connect time' is almost equal.
+   Finally found the root cause is the log defination is 'DEBUG' rather 'NOTICE', you know old Huawei mobile phones have 'storage issues', the log took too much time.
 
    
