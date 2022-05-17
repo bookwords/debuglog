@@ -1,0 +1,28 @@
+1. Linux dns server
+   a. install bind 'rpm' for cenos
+   b. add test.com domain name and its ip/ipv6 address.
+   c. DUT must clear public DNS settings, or use the one provided by gateway.
+   d. optional, setting gateway domain to pppoe-server address
+   file /etc/named.conf
+        listen-on port 53 { any; };
+        listen-on-v6 port 53 { ::1; };
+
+   file /etc/named.rfc1912.zones
+        zone "test.com" IN {
+                type master;
+                file "test.com.zone";
+                allow-update { none; };
+        }
+
+   file /var/named/test.com.zone
+        $TTL 1D
+        @       IN SOA  test.com. root.test.com. (
+                                                0       ; serial
+                                                1D      ; refresh
+                                                1H      ; retry
+                                                1W      ; expire
+                                                3H )    ; minimum
+                IN      NS      test.com.
+                IN      A       10.4.4.212
+                IN      AAAA    240c:a:b:cc::101:101
+        
