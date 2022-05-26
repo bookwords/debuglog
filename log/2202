@@ -32,3 +32,8 @@
           2. openwrt change dhcp server option:
                      uci show dhcp.lan.dhcp_option
                      dhcp.lan.dhcp_option='6,10.4.4.253'
+
+2. windows multi NICS share internet.
+   windows use some sort of NAT to achieve this, Just enable the share by setting the PC that can connect to the internet, 
+   and then chose the other one.  
+
