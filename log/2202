@@ -83,5 +83,6 @@ GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap
 
 </hostdev>
 
-
+6. websocket
+http://coolaf.com/tool/chattest
 
