@@ -40,3 +40,34 @@
 3. http cgi
    cgi.html
    
+4. internet LAN address.
+   classs A: 10.0.0.0/8
+   classs B: 172.16.0.0/12
+   classs C: 192.168.0.0/16
+
+5. openwrt firewall disable wan
+
+"uci add firewall rule",
+"uci set firewall.@rule[-1].src='lan'",
+"uci set firewall.@rule[-1].dest='wan'",
+"uci set firewall.@rule[-1].target='REJECT'",
+"uci set firewall.@rule[-1].name='disablewan'",
+"uci set firewall.@rule[-1].proto='all'",
+"uci set firewall.@rule[-1].enabled='1'"
+
+firewall.@rule[10]=rule
+firewall.@rule[10].src='lan'
+firewall.@rule[10].dest='wan'
+firewall.@rule[10].dest_ip='192.168.0.0/16' '10.0.0.0/8' '172.16.0.0/12'
+firewall.@rule[10].target='ACCEPT'
+firewall.@rule[10].name='localrules'
+firewall.@rule[10].proto='all'
+firewall.@rule[10].enabled='1'
+firewall.@rule[11]=rule
+firewall.@rule[11].src='lan'
+firewall.@rule[11].dest='wan'
+firewall.@rule[11].target='REJECT'
+firewall.@rule[11].name='disablewan'
+firewall.@rule[11].proto='all'
+firewall.@rule[11].enabled='0'
+
