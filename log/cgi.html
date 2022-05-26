@@ -1,0 +1,7 @@
+<body>
+    <form name="formcmd" action="index.php?cmd">
+        <input type="text" name="instr" id="cmd" />
+        <input type="button" name="button" value="说明" onclick="outputMan()" />
+    </form>
+    <iframe src="/bin/cmd.cgi?<?php echo $incmd; ?>" id="iframe" name="iframe" frameborder="0" scrolling="no"></iframe>
+</body>
