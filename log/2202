@@ -71,3 +71,17 @@ firewall.@rule[11].name='disablewan'
 firewall.@rule[11].proto='all'
 firewall.@rule[11].enabled='0'
 
+6. pci passthrough
+GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet intel_iommu=on iommu=pt"
+#virsh nodedev-list --tree|grep enp3s0f2 -B3
+#virsh nodedev-dumpxml pci_0000_03_00_2
+
+<hostdev mode=’subsystem’ type=’pci’ managed=’yes’>
+  <source>
+      <address domain=’0x0000’ bus=’0x03’ slot=’0x00’ function=’0x2’ />
+  </source>
+
+</hostdev>
+
+
+

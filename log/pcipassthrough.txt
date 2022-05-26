@@ -1,0 +1,76 @@
+网卡passthrough在虚拟机的配置方法
+
+1 使用lcpci 设备查看pci设备信息
+
+04:00.0 Ethernet controller: Intel Corporation 82571EB Gigabit Ethernet Controller (rev 06)
+
+04:00.1 Ethernet controller: Intel Corporation 82571EB Gigabit Ethernet Controller (rev 06)
+
+也可以使用virsh nodedev-list –tree得到信息
+
+ +- pci_0000_00_07_0
+
+ | |
+
+ | +- pci_0000_04_00_0
+
+ | | |
+
+ | | +- net_p1p1_00_1b_21_88_69_dc
+
+ | | 
+
+ | +- pci_0000_04_00_1
+
+ | |
+
+ | +- net_p1p2_00_1b_21_88_69_dd
+
+2 使用virsh nodedev-dumxml pci_0000_04_00_0得到xml配置信息
+
+[root@virt15-njhx-kvm-20 network-scripts]# virsh nodedev-dumpxml pci_0000_04_00_0
+
+<device>
+
+ <name>pci_0000_04_00_0</name>
+
+ <parent>pci_0000_00_07_0</parent>
+
+ <driver>
+
+ <name>e1000e</name>
+
+ </driver>
+
+ <capability type='pci'>
+
+ <domain>0</domain>
+
+ <bus>4</bus>
+
+ <slot>0</slot>
+
+ <function>0</function>
+
+ <product id='0x105e'>82571EB Gigabit Ethernet Controller</product>
+
+ <vendor id='0x8086'>Intel Corporation</vendor>
+
+ </capability>
+
+</device>
+
+3 编辑虚拟机xml文件，加入pci设备信息
+
+<hostdev mode='subsystem' type='pci' managed='yes'>
+
+ <source>
+
+ <address domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+
+ </source>
+
+</hostdev>
+
+Domain bus slot function信息从dumpxml出的xml文件获取，define虚拟机，然后开启虚拟机就可以，注意以为附件上去的是物理设备，需要在系统里面安装相应的驱动。
+
