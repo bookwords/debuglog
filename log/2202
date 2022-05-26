@@ -26,3 +26,9 @@
                 IN      A       10.4.4.212
                 IN      AAAA    240c:a:b:cc::101:101
         
+  notice: 1. failure:  ;; Got SERVFAIL reply from*** ， trying next server.
+             solution: file mode issues, change owner to 'named';
+                       cmd: chown named:named /var/named/test.com.zone
+          2. openwrt change dhcp server option:
+                     uci show dhcp.lan.dhcp_option
+                     dhcp.lan.dhcp_option='6,10.4.4.253'
