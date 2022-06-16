@@ -99,6 +99,21 @@ tc qdisc add dev enp2s0 parent 1:11 handle 10: netem delay 10ms
 tc qdisc add dev enp2s0 parent 1:12 handle 20: netem delay 50ms
 
 
+7. vlan
+#modprobe 8021q
+#lsmod |grep -i 8021q
+使用linux vconfig命令配置vlan
+#vconfig add eth0 100
+#vconfig add eth0 200
+在eth0接口上配置两个VLAN
+#vconfig set_flag eth0.100 1 1
+#vconfig set_flag eth0.200 1 1
+设置VLAN的REORDER_HDR参数，默认就行了。
+可以使用cat /proc/net/vlan/eth0.100查看eth0.100参数
+配置网络信息
+#ifconfig eth0 0.0.0.0
+#ifconfig eth0.100 192.168.100.50 netmask 255.255.255.0 up
+#ifconfig eth0.200 192.168.200.50 netmask 255.255.255.0 up
 
 
 
