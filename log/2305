@@ -1,4 +1,4 @@
-1. DPDK memzone init failed.
+1. 230504, DPDK memzone init failed.
 EAL: Detected CPU lcores: 4
 EAL: Detected NUMA nodes: 1
 EAL: Detected static linkage of DPDK
@@ -25,5 +25,16 @@ and I tried to move the resart script to the main app rather than the child proc
 And it succeeded.
 
 Nice work for me.
+
+2. 230512, packets loss in DPDK throughput test.
+Working on DPDK project several days ago, and I got a packets loss in a test whih two linux hosts. It's weird that the TX rate not so high, only about 200Mbps.
+
+I was nervous that some bug fix  I commited may led to this. 
+
+But finally, It'ss the software bridge(linux host we used as a bridge to damage the packet) to blame. 
+
+
+
+
 
 
