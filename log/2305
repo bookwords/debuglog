@@ -1,0 +1,29 @@
+1. DPDK memzone init failed.
+EAL: Detected CPU lcores: 4
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: No available 1048576 kB hugepages reported
+EAL: VFIO support initialized
+EAL: Cannot allocate memzone list
+EAL: FATAL: Cannot init memzone
+EAL: Cannot init memzone
+
+Description: this error message encountered while debug APP upgrade with USB storage disk.
+
+Introduction: 
+APP will detect insertion of USB disk, automatically mount the disk, parse disk files and find the APP's newer verison. 
+And then upgrade operation will be executed, and then generate the restart script and quit with 'exit'. 
+The restart script do the copy and paste job and then start the new one. this is the place while the error message up occured.
+After several times search in google, they all say the root cause is the hugepage memory.
+
+Solution:
+I'm stuck here for several days. 
+And finally, it came to me that the restart script still got the environment to the old APP. 
+and I tried to move the resart script to the main app rather than the child process, only the flag(a temp file in /dev/shm) was set in child process.
+And it succeeded.
+
+Nice work for me.
+
+
